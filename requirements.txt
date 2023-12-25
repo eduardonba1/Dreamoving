@@ -1,2 +1,4 @@
 redis==4.5.1
 gradio==3.47.1
+gradio_client==0.6.0
+oss2==2.18.2
