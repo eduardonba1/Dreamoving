@@ -236,10 +236,10 @@ with gr.Blocks(title = "追影",
     with gr.Row():
         with gr.Column(scale=1):  # 左侧一列
             # gr.Markdown("输入形象和动作",elem_id='font_style')
-            with gr.Box(elem_id='show_box'):
+            with gr.Group(elem_id='show_box'):
                 gr.Markdown("输入你的形象")
                 with gr.Column(): 
-                    with gr.Box(elem_id='show_box1'):
+                    with gr.Group(elem_id='show_box1'):
                         with gr.Row(): # 图片输入
                             #左侧图片预览
                             ref_image = gr.Image(source='upload', type='filepath', show_label=False, label='输入图片',elem_id='show_window_image') 
@@ -296,9 +296,9 @@ with gr.Blocks(title = "追影",
         
         with gr.Column(scale=1):  # 右侧一列
             # gr.Markdown("生成视频",elem_id='font_style') 
-            with gr.Box(elem_id='show_box2'):
+            with gr.Group(elem_id='show_box2'):
                 with gr.Row():
-                    with gr.Box(elem_id='box_show4'):
+                    with gr.Group(elem_id='box_show4'):
                         with gr.Column(scale=0.33, min_width=0.33):
                             gr.Markdown("生成视频",elem_id='font_style')
                         with gr.Column(scale=0.33, min_width=0.33):
@@ -326,7 +326,7 @@ with gr.Blocks(title = "追影",
     # mp4_listss = [[i] for i in mp4_lists]
     # gr.Markdown("样例视频",elem_id='font_style')
     # ref_video1 = gr.Video(source='upload', height=400, type='filepath', show_label=False, visible=False, label='输入视频',elem_id='show_window_video')
-    # with gr.Box():
+    # with gr.Group():
     #     gr.Examples(mp4_listss, examples_per_page=12, inputs=[ref_video1], label='')
 
     if ENABLE_OSS_RESOURCES:
@@ -345,7 +345,7 @@ with gr.Blocks(title = "追影",
         num_video = len(mp4_lists)
     with gr.Row():
         gr.Markdown("样例视频",elem_id='font_style')
-    with gr.Box(elem_id='show_box'):
+    with gr.Group(elem_id='show_box'):
         with gr.Column():   
             for i in range(int((num_video+num_videos_per_row-1)/num_videos_per_row)):
                 with gr.Row():
