@@ -456,8 +456,8 @@ with gr.Blocks(title = "追影",
     #     format_text = script_text_to_load_results.format(snapshots, referenceVideoSnapshots)
     #     demo.load(_js = format_text)
 
-    
-demo.queue(api_open=False, concurrency_count=1000).launch(
+# concurrency_count concurrency_limit max_threads
+demo.queue(api_open=False, max_threads=1000).launch(
     server_name="0.0.0.0" if os.getenv('GRADIO_LISTEN', '') != '' else "127.0.0.1",
     share=False,
     server_port=7861,
