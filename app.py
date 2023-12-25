@@ -458,9 +458,9 @@ with gr.Blocks(title = "追影",
 
 # concurrency_count concurrency_limit max_threads
 demo.queue(api_open=False, max_size=1000).launch(
-    server_name="0.0.0.0" if os.getenv('GRADIO_LISTEN', '') != '' else "127.0.0.1",
-    share=False,
-    server_port=7861,
+    server_name="0.0.0.0",
+    share=True,
+    server_port=7860,
     root_path=f"/{os.getenv('GRADIO_PROXY_PATH')}" if os.getenv('GRADIO_PROXY_PATH') else ""
 )
 
