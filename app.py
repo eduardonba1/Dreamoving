@@ -431,30 +431,30 @@ with gr.Blocks(title = "追影",
             </div>
     """)
 
-    if ENABLE_OSS_RESOURCES:
-        snapshots = ""
-        sample_video_list = get_dirnames(filePath="./data/sample_video", tail=".mp4")
-        for i in range(12):
-            if i < len(sample_video_list):
-                file_name = os.path.basename(sample_video_list[i])
-                oss_path = "oss://vigen-invi/video_generation/sample_video/" + file_name
-                style = "video/snapshot,t_1000,f_jpg,w_560,h_800,m_fast"
-                params = {'x-oss-process': style}
-                _, url = oss_service.sign(oss_path, timeout=3600*100, params=params)
-                snapshots = snapshots + url + ";"
+    # if ENABLE_OSS_RESOURCES:
+    #     snapshots = ""
+    #     sample_video_list = get_dirnames(filePath="./data/sample_video", tail=".mp4")
+    #     for i in range(12):
+    #         if i < len(sample_video_list):
+    #             file_name = os.path.basename(sample_video_list[i])
+    #             oss_path = "oss://vigen-invi/video_generation/sample_video/" + file_name
+    #             style = "video/snapshot,t_1000,f_jpg,w_560,h_800,m_fast"
+    #             params = {'x-oss-process': style}
+    #             _, url = oss_service.sign(oss_path, timeout=3600*100, params=params)
+    #             snapshots = snapshots + url + ";"
         
-        referenceVideoSnapshots = ""
-        template_video_list = examples['template_video']
-        for i in range(9):
-            if i < len(template_video_list):
-                file_name = template_video_list[i]
-                oss_path = "oss://vigen-invi/video_generation/template_video1/" + file_name
-                style = "video/snapshot,t_1000,f_jpg,w_56,h_80,m_fast"  #112,160
-                params = {'x-oss-process': style}
-                _, url = oss_service.sign(oss_path, timeout=3600*100, params=params)
-                referenceVideoSnapshots = referenceVideoSnapshots + url + ";"
-        format_text = script_text_to_load_results.format(snapshots, referenceVideoSnapshots)
-        demo.load(_js = format_text)
+    #     referenceVideoSnapshots = ""
+    #     template_video_list = examples['template_video']
+    #     for i in range(9):
+    #         if i < len(template_video_list):
+    #             file_name = template_video_list[i]
+    #             oss_path = "oss://vigen-invi/video_generation/template_video1/" + file_name
+    #             style = "video/snapshot,t_1000,f_jpg,w_56,h_80,m_fast"  #112,160
+    #             params = {'x-oss-process': style}
+    #             _, url = oss_service.sign(oss_path, timeout=3600*100, params=params)
+    #             referenceVideoSnapshots = referenceVideoSnapshots + url + ";"
+    #     format_text = script_text_to_load_results.format(snapshots, referenceVideoSnapshots)
+    #     demo.load(_js = format_text)
 
     
 demo.queue(api_open=False, concurrency_count=1000).launch(
