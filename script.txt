@@ -1,0 +1,224 @@
+function my_func() {{
+        var snapshots = "{}";
+        var referenceVideoSnapshots = "{}";
+
+        // Split the string by ";"
+        var segments = snapshots.split(";");
+        var referenceVideoSegments = referenceVideoSnapshots.split(";");
+
+        var index = 0;
+
+        // step 1. the generated demo video list        
+        //#component-37 > div.wrap.svelte-w5wajl > video
+        //match selector on ModelScope: #component-45 > div.wrap.svelte-w5wajl > video
+        //match selector on localhost: #component-47 > div.wrap.svelte-lcpz3o > div:nth-child(1) > video
+        var specificVideos = document.querySelectorAll('[id^="component-"] > div.wrap > video');
+
+        // If no videos found by modelScope rule, try localhost rule
+        if (specificVideos.length === 0) {{
+            specificVideos = document.querySelectorAll('[id^="component-"] > div.wrap > div:nth-child(1) > video');
+        }}
+
+        // Loop through the NodeList of specific video elements
+        specificVideos.forEach(function(video) {{
+            //var videoSelector = "#component-37 > div.wrap > div:nth-child(" + index + ") > video";
+            //var videoElement = document.querySelector(videoSelector);
+            var videoElement = video;
+                
+            if (videoElement) {{
+                videoElement.poster = segments[index];
+                //videoElement.autoplay = true;
+                
+                videoElement.id = "myvideo_" + index;
+                videoElement.setAttribute("playsinline", "");
+                videoElement.setAttribute("muted", "");
+            }} else {{
+                console.error('Video element not found');
+            }}
+
+            index = index + 1;
+        }});
+
+        // step 2: reference video list
+        // for local rule to match reference videos:
+        //#component-24 > div.gallery.svelte-13hsdno > button:nth-child(1) > div > video
+        //#component-24 > div.gallery.svelte-13hsdno > button:nth-child(2) > div > video
+        // for modelscope 
+        //#component-24 > div.gallery.svelte-13hsdno > button:nth-child(1) > video
+        var referenceVideos = document.querySelectorAll('[id^="component-"] > div.gallery > button > video');
+        // If no videos found by modelScope rule, try localhost rule
+        if (referenceVideos.length === 0) {{
+            referenceVideos = document.querySelectorAll('[id^="component-"] > div.gallery > button > div > video');
+        }}
+
+        index = 0;
+        referenceVideos.forEach(function(video) {{
+            var videoElement = video;
+                
+            if (videoElement) {{
+                videoElement.poster = referenceVideoSegments[index];
+                //videoElement.autoplay = true;
+                
+                videoElement.id = "refvideo_" + index;
+                videoElement.setAttribute("playsinline", "");
+                videoElement.setAttribute("muted", "");
+
+                  // Add a click event listener to the video element
+                videoElement.addEventListener('click', function() {{
+                    
+                    setTimeout(() => {{
+                        // Select the video element, and create an oberservor for listening to the src update:
+                        var selectedVideoElement = document.querySelector('#show_window_video > div.wrap > video');
+                        // If no videos found by modelScope rule, try localhost rule
+                        if (selectedVideoElement === null) {{
+                            selectedVideoElement = document.querySelector('#show_window_video > div.wrap > div > video');
+                        }}
+
+                        if (selectedVideoElement) {{
+                            selectedVideoElement.poster = videoElement.poster;
+                            //selectedVideoElement.autoplay = true;
+                            selectedVideoElement.setAttribute("autoplay", "");
+                            selectedVideoElement.setAttribute("playsinline", "");
+                            selectedVideoElement.setAttribute("muted", "");
+                            //selectedVideoElement.width = 210;  
+                            //selectedVideoElement.height = 245; 
+
+                            const userAgent = navigator.userAgent;
+
+                            // Check for WeChat Mobile Browser
+                            if (/MicroMessenger/i.test(userAgent)) {{
+                                selectedVideoElement.load();
+                            }}
+                            // Check for any Mobile Device
+                            else if (/Mobi/i.test(userAgent)) {{
+                                selectedVideoElement.load();
+                            }}
+                            
+                            console.error('poster updated');
+                        }}else {{
+                            console.error('No video element found for selectedVideoElement!!!');
+                        }}
+                    }}, 500)
+
+                }});
+            }} else {{
+                console.error('Video element not found');
+            }}
+
+            index = index + 1;
+        }});
+
+
+        // step 3. 
+        // select the target node
+        var result_box = document.querySelector('#show_box2');
+
+        // Get the button element by its ID
+        var refresh_button = document.querySelector('#button_param1');
+
+        function updateVideoSnapshot() {{
+                const userAgent = navigator.userAgent;
+
+                // Check for WeChat Mobile Browser or any Mobile Device
+                if (/MicroMessenger/i.test(userAgent) || /Mobi/i.test(userAgent)) {{
+                    // Do something if on WeChat or a mobile device
+                    console.error('on mobile');
+                }} else{{
+                    console.error('on pc');
+                    return ;
+                }}
+
+                videoDiv1 = document.querySelector('#show_window_result1');
+
+                // Try to find the video element using a less specific selector
+                video1 = videoDiv1.querySelector('video');
+
+                if (video1) {{
+                    // #output_snapshot_image1 > button > img
+                    var snapshoptImage = document.querySelector('#output_snapshot_image1 button img');
+                    if(snapshoptImage && video1.poster !== snapshoptImage.src){{
+                        video1.poster = snapshoptImage.src;
+                        video1.setAttribute("autoplay", "autoplay");
+                        video1.setAttribute("playsinline", "playsinline");
+                        video1.setAttribute("muted", "muted");
+                    }}
+                }}
+
+                videoDiv2 = document.querySelector('#show_window_result2');
+                //video2 = document.querySelector('#show_window_result2 > div.wrap > video');
+                video2 = videoDiv2.querySelector('video');
+
+                if (video2 === null) {{
+                    videoDiv2.hidden = true;
+                }} else {{
+                    videoDiv2.hidden = false;
+                    // #output_snapshot_image2 > button > img
+                    var snapshoptImage = document.querySelector('#output_snapshot_image2 > button > img');
+                    if(snapshoptImage && video2.poster !== snapshoptImage.src){{
+                        video2.poster = snapshoptImage.src;
+                        video2.setAttribute("autoplay", "autoplay");
+                        video2.setAttribute("playsinline", "playsinline");
+                        video2.setAttribute("muted", "muted");
+                    }}
+                }}
+
+                videoDiv3 = document.querySelector('#show_window_result3');
+                video3 = videoDiv3.querySelector('video');
+
+                
+                if (video3 === null) {{
+                    videoDiv3.hidden = true;
+                }} else {{
+                    videoDiv3.hidden = false;
+                    // #output_snapshot_image3 > button > img
+                    var snapshoptImage = document.querySelector('#output_snapshot_image3 > button > img');
+                    if(snapshoptImage && video3.poster !== snapshoptImage.src){{
+                        video3.poster = snapshoptImage.src;
+                        video3.setAttribute("autoplay", "autoplay");
+                        video3.setAttribute("playsinline", "playsinline");
+                        video3.setAttribute("muted", "muted");
+                    }}
+                }}
+
+                videoDiv4 = document.querySelector('#show_window_result4');
+                video4 = videoDiv4.querySelector('video');
+                
+                if (video4 === null) {{
+                    videoDiv4.hidden = true;
+                }} else {{
+                    videoDiv4.hidden = false;
+
+                    // #output_snapshot_image4 > button > img
+                    var snapshoptImage = document.querySelector('#output_snapshot_image4 > button > img');
+                    if(snapshoptImage && video4.poster !== snapshoptImage.src){{
+                        video4.poster = snapshoptImage.src;
+                        video4.setAttribute("autoplay", "autoplay");
+                        video4.setAttribute("playsinline", "playsinline");
+                        video4.setAttribute("muted", "muted");
+                    }}
+                }}
+        }}
+
+        // Define the action to be taken when the button is clicked
+        function handleButtonClick() {{
+            setTimeout(() => {{
+                console.error('Refresh button clicked');
+                updateVideoSnapshot();
+            }}, 3600);
+
+            setTimeout(() => {{
+                updateVideoSnapshot();
+            }}, 5000) 
+
+            setTimeout(() => {{
+                updateVideoSnapshot();
+            }}, 8000) 
+        }}
+
+
+
+        // Add click event listener to the button
+        refresh_button.addEventListener('click', handleButtonClick);
+
+        
+    }}
