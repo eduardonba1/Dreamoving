@@ -457,7 +457,7 @@ with gr.Blocks(title = "追影",
     #     demo.load(_js = format_text)
 
     
-demo.queue(api_open=False, concurrency_limit=1000).launch(
+demo.queue(api_open=False, concurrency_count=1000).launch(
     server_name="0.0.0.0" if os.getenv('GRADIO_LISTEN', '') != '' else "127.0.0.1",
     share=False,
     server_port=7861,
