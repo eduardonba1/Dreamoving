@@ -242,7 +242,7 @@ with gr.Blocks(title = "追影",
                     with gr.Group(elem_id='show_box1'):
                         with gr.Row(): # 图片输入
                             #左侧图片预览
-                            ref_image = gr.Image(source='upload', type='filepath', show_label=False, label='输入图片',elem_id='show_window_image') 
+                            ref_image = gr.Image(sources='upload', type='filepath', show_label=False, label='输入图片',elem_id='show_window_image') 
                             #右侧图片列表
                             gr.Examples(examples['examples_images'], examples_per_page=9, inputs=[ref_image], label='')
                     
@@ -266,7 +266,7 @@ with gr.Blocks(title = "追影",
                             prompt_template = gr.Textbox(placeholder="输入提示词控制生成效果，如人物，人物的服饰、场景等，支持中/英文输入。",label="Prompt提示词", lines=2,interactive=True,show_label=False, text_align='left')
                             with gr.Row():
                                 # FIXME: the width/height setting not work here, TODO: CSS 调整
-                                ref_video = gr.Video(source='upload', type='filepath', show_label=False, label='输入视频', autoplay=True, elem_id='show_window_video', width=224, height=360)
+                                ref_video = gr.Video(sources='upload', type='filepath', show_label=False, label='输入视频', autoplay=True, elem_id='show_window_video', width=224, height=360)
                                 # gr.Examples(examples['template_video'], examples_per_page=9,inputs=[ref_video], label='样例视频')
                                 # dataset_select = gr.Dataset(
                                 #     label='样例视频',
@@ -308,14 +308,14 @@ with gr.Blocks(title = "追影",
                            
                 with gr.Row():
                     output_video0 = gr.Video(type="mp4", show_label=False, label="Result Video", autoplay=True, elem_id='show_window_result1', elem_classes="show_window_result")
-                    output_snapshot_image0 = gr.Image(source='upload', type='filepath', show_label=False, interactive=False, elem_id='output_snapshot_image1', width=200,height=1, visible=False) 
+                    output_snapshot_image0 = gr.Image(sources='upload', type='filepath', show_label=False, interactive=False, elem_id='output_snapshot_image1', width=200,height=1, visible=False) 
                     output_video1 = gr.Video(type="mp4", show_label=False, label="Result Video", autoplay=True,elem_id='show_window_result2', elem_classes="show_window_result")
-                    output_snapshot_image1 = gr.Image(source='upload', type='filepath', show_label=False, interactive=False, elem_id='output_snapshot_image2', width=200,height=1, visible=False) 
+                    output_snapshot_image1 = gr.Image(sources='upload', type='filepath', show_label=False, interactive=False, elem_id='output_snapshot_image2', width=200,height=1, visible=False) 
                 with gr.Row():
                     output_video2 = gr.Video(type="mp4", show_label=False, label="Result Video", autoplay=True,elem_id='show_window_result3', elem_classes="show_window_result")
-                    output_snapshot_image2 = gr.Image(source='upload', type='filepath', show_label=False, interactive=False, elem_id='output_snapshot_image3', width=200,height=1, visible=False) 
+                    output_snapshot_image2 = gr.Image(sources='upload', type='filepath', show_label=False, interactive=False, elem_id='output_snapshot_image3', width=200,height=1, visible=False) 
                     output_video3 = gr.Video(type="mp4", show_label=False, label="Result Video", autoplay=True,elem_id='show_window_result4', elem_classes="show_window_result")
-                    output_snapshot_image3 = gr.Image(source='upload', type='filepath', show_label=False, interactive=False, elem_id='output_snapshot_image4', width=200,height=1, visible=False) 
+                    output_snapshot_image3 = gr.Image(sources='upload', type='filepath', show_label=False, interactive=False, elem_id='output_snapshot_image4', width=200,height=1, visible=False) 
             
     uuid = gr.Text(label="modelscope_uuid", visible=False)
     request_id = gr.Text(label="modelscope_request_id", visible=False)
@@ -325,7 +325,7 @@ with gr.Blocks(title = "追影",
     mp4_lists = get_dirnames(filePath="./data/sample_video", tail=".mp4")
     # mp4_listss = [[i] for i in mp4_lists]
     # gr.Markdown("样例视频",elem_id='font_style')
-    # ref_video1 = gr.Video(source='upload', height=400, type='filepath', show_label=False, visible=False, label='输入视频',elem_id='show_window_video')
+    # ref_video1 = gr.Video(sources='upload', height=400, type='filepath', show_label=False, visible=False, label='输入视频',elem_id='show_window_video')
     # with gr.Group():
     #     gr.Examples(mp4_listss, examples_per_page=12, inputs=[ref_video1], label='')
 
