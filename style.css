@@ -318,12 +318,14 @@ input.svelte-1evtqhp.svelte-1evtqhp {
 
 #font_style {
     font-size: 16px;
-    /* font-style: inherit; */
     font-weight: 800;
-    /* font-family: system-ui; */
     text-align: -webkit-center;
     min-width: min(0px, 100%);
 }
+#round_box {
+    align-items: center;
+}
+
 .gradio-container-4-12-0 .prose pre,
 .gradio-container-4-12-0 .prose blockquote,
 .gradio-container-4-12-0 .prose dl,
