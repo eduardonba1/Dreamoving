@@ -300,7 +300,7 @@ with gr.Blocks(title = "Dreamoving",
         with gr.Column(scale=1): 
             # gr.Markdown("Result Video",elem_id='font_style') 
             with gr.Group(elem_id='show_box2'):
-                with gr.Row():
+                with gr.Row(elem_id='round_box'):
                     with gr.Column(scale=1, min_width=1):
                         gr.Markdown("Result Video", elem_id='font_style')
                     with gr.Column(scale=1, min_width=1):
