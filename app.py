@@ -303,7 +303,7 @@ with gr.Blocks(title = "Dreamoving",
                 with gr.Row(elem_id='round_box'):
                     with gr.Column(scale=1, min_width=1):
                         gr.Markdown("Result Video", elem_id='font_style')
-                    with gr.Column(scale=1, min_width=1):
+                    with gr.Column(scale=3, min_width=1):
                         user_notes = gr.Textbox(show_label=False, text_align='left', elem_id='text_style11')
                     with gr.Column(scale=1, min_width=1):
                         refresh_button = gr.Button(value="Refresh", elem_id='button_param1')
