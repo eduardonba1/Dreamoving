@@ -4,7 +4,7 @@ import json
 
 is_test_gradio = False
 is_wanx_platform = False
-VERSION = "1.1.8"
+VERSION = "1.1.9"
 
 scale_depth = 0.7
 scale_pose = 0.5
@@ -15,13 +15,13 @@ OSSAccessKeySecret = os.getenv('OSSAccessKeySecret')
 EAS_AUTH_CARTOONRECOG = os.getenv('EAS_AUTH_CARTOONRECOG')
 EAS_AUTH_PROMPT = os.getenv('EAS_AUTH_PROMPT')
 
-num_instance_dashone = 10
-avg_process_time = 4.3 # 7 # minutes
+num_instance_dashone = 2
+avg_process_time = 5 # minutes
 ref_video_path = 'data/origin_video/video'
-ref_video_prompt = 'data/origin_video/video_prompts_cn.txt'
+ref_video_prompt = 'data/origin_video/video_prompts_en.txt'
 
 class RESOURCES:
-    logo_img0 = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/humangen-2023-11-02/logo/title0.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1705605234&Signature=s759XKL4NEBHS8SPMRjIw1U%2FWr4%3D"
+    logo_img0 = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/humangen-2023-11-02/logo/dreamoving.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1707180774&Signature=WSmhiJ2RWgFMoMQ2rf0VOvCkIY8%3D"
     logo_img1 = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/humangen-2023-11-02/logo/title1.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1705605528&Signature=Nv8MYnkZd%2F45GZA2tCZFtu6cREM%3D"
     logo_img2 = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/humangen-2023-11-02/logo/title2.png?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1705605598&Signature=ac0P4ENqTrlWG73fYhfaYUR551o%3D"
     logo_dingding = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/humangen-2023-11-02/logo/dingdingqun.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1706503081&Signature=133WdLAWzsBQzqIWvD5yXcsP69I%3D"
@@ -63,17 +63,13 @@ template_orign_videos = {
 'template_100.mp4':'./data/origin_video/video/100.mp4',
 }
 template_prompts = {
-"template_31.mp4":'一个女孩，在秋天的公园里跳舞，穿着长款灰色T恤和长袖。',
-"template_38.mp4":'一个男人，在时代广场，穿着衬衫和西装。',
-"template_41.mp4":'一位女孩，身穿圣诞老人装，长袖红裤，置身于童话小镇。',
-"template_43.mp4":'一位男士，身穿圣诞老人装，长袖红裤，置身于童话小镇。',
-"template_46.mp4":'一位女孩，面带微笑，在桌子前跳舞，桌上有绿植，身穿长毛衣和牛仔裤。',
-"template_51.mp4":'一位女孩，站在中央公园，身穿白色毛衣和牛仔裤。',
-"template_67.mp4":'有一个女人穿着裙子在覆盖着雪的童话小镇上跳舞。',
-"template_81.mp4":'一位女孩，穿着白色衬衫和蓝色短裤，在有壁炉的温暖公寓中跳舞。',
-"template_100.mp4":'一位女孩，在海边沙滩上跳舞，穿着长袖白色连衣裙。',
+"template_31.mp4":'a girl, dancing in the park in autumn, wear long gray t-shirt with long sleeves.',
+"template_38.mp4":'a man, in Times Square, wearing shirt and suit.',
+"template_41.mp4":'a girl, in a fairytale town, wearing Santa clause costume, long sleeves, red pants.',
+"template_43.mp4":'a man, in a fairytale town, wearing Santa clause costume, long sleeves, red pants.',
+"template_46.mp4":'a girl, smiling, dancing in front of a desk with green plants, wearing long sweater and jeans.',
+"template_51.mp4":'a girl, standing in central park, wearing a white sweater and jeans.',
+"template_67.mp4":'there is a woman in a skirt dancing in a fairytale town covered in snow.',
+"template_81.mp4":'a girl in a white shirt and blue shorts is dancing, in an warm apartment with a fireplace.',
+"template_100.mp4":'a girl, dancing on a beach next to the ocean, wearing a white dress with long sleeves.',
 }
-
-# RELEASE_NOTE = '''使用说明（2023/12/18）
-#     1、...
-# '''
