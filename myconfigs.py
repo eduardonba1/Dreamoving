@@ -12,8 +12,12 @@ scale_pose = 0.5
 DASHONE_SERVICE_ID = os.getenv('DASHONE_SERVICE_ID')
 OSSAccessKeyId = os.getenv('OSSAccessKeyId')
 OSSAccessKeySecret = os.getenv('OSSAccessKeySecret')
+OSSEndpoint = os.getenv('OSSEndpoint')
+OSSBucketName = os.getenv('OSSBucketName')
+OSSObjectName = os.getenv('OSSObjectName')
 EAS_AUTH_CARTOONRECOG = os.getenv('EAS_AUTH_CARTOONRECOG')
 EAS_AUTH_PROMPT = os.getenv('EAS_AUTH_PROMPT')
+TRANSLATE_CN_EN = os.getenv('TRANSLATE_CN_EN')
 
 num_instance_dashone = 2
 avg_process_time = 5 # minutes
