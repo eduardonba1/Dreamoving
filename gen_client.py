@@ -425,7 +425,9 @@ class HumanGenService:
         prompt_caption_data['payload'] = {}
         prompt_caption_data['payload']['input'] = {}
         prompt_caption_data['payload']['input']['work_type'] = 'prompt_caption'
-        sign_vid_oss_path = 'https://vigen-invi.oss-cn-shanghai-internal' + sign_vid_oss_path[len('https://vigen-invi.oss-cn-shanghai'):]
+        oss_endpoint_seg = OSSEndpoint[:-len(".aliyuncs.com")]
+        sign_vid_oss_path = oss_endpoint_seg + '-internal' + sign_vid_oss_path[len(oss_endpoint_seg):]
+        print(f"request_id: {request_id}, video internal oss path for caption: {sign_vid_oss_path}")
         prompt_caption_data['payload']['input']['key'] = sign_vid_oss_path
         prompt_caption_data['payload']['parameters'] = {}
         prompt_caption_data['payload']['parameters']['input_type'] = 'reference_video' # id_image,cartoon_id_image,reference_video
