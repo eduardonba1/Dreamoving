@@ -27,13 +27,15 @@ def get_random_string():
 
 class ossService():
     def __init__(self):
+        # print(f'AK: ******{OSSAccessKeyId[-3:]}')
+        # print(f'SK: ******{OSSAccessKeySecret[-3:]}')
         self.AccessKeyId = OSSAccessKeyId
         self.AccessKeySecret = OSSAccessKeySecret
-        self.Endpoint = "https://oss-cn-shanghai.aliyuncs.com"
+        self.Endpoint = OSSEndpoint
         if use_internal_network: 
-            self.Endpoint = "https://oss-cn-shanghai-internal.aliyuncs.com"
-        self.BucketName = "vigen-invi" # "vigen-video"
-        self.ObjectName = "video_generation" # "VideoGeneration"
+            self.Endpoint = OSSEndpoint[:-len(".aliyuncs.com")] + "-internal.aliyuncs.com"
+        self.BucketName = OSSBucketName # "vigen-invi" # "vigen-video"
+        self.ObjectName = OSSObjectName # "video_generation" # "VideoGeneration"
         self.Prefix = "oss://" + self.BucketName
 
         auth = oss2.Auth(self.AccessKeyId, self.AccessKeySecret)
