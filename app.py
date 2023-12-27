@@ -294,7 +294,7 @@ with gr.Blocks(title = "Dreamoving",
                                                                                 
                     with gr.Row(): 
                         # Generate Button
-                        run_button = gr.Button(value="Result Video", elem_id='button_param') 
+                        run_button = gr.Button(value="Generation", elem_id='button_param') 
                         # btn = gr.Button("Result Video").style(full_width=False)
         
         with gr.Column(scale=1): 
