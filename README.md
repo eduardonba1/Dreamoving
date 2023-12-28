@@ -1,8 +1,8 @@
 ---
 title: Dreamoving
-emoji: 📉
-colorFrom: blue
-colorTo: yellow
+emoji: 👀
+colorFrom: pink
+colorTo: red
 sdk: gradio
 sdk_version: 4.12.0
 app_file: app.py
