@@ -190,7 +190,8 @@ with gr.Blocks(title = "Dreamoving",
         "# Gradio OAuth Space\n\nThis Space is a demo for the new **Sign in with Hugging Face** feature."
     )
     gr.LoginButton()
-    demo.load(hello, inputs=None, outputs=m1)
+    m_text = gr.Markdown()
+    demo.load(hello, inputs=None, outputs=m_text)
     with gr.Row():
         gr.HTML(f"""
                 <div id=css_img_dreamoving>
