@@ -47,7 +47,7 @@ def get_user_result_video_list(uuid, date_string, num):
             exist = oss_service.bucket.object_exists(file_full_path)
             
             if not exist:
-                print(f'file_full_path is not existed')
+                print(f'{file_full_path} is not existed')
                 tmp_directory=obj.key
                 print(f'tmp_directory = {tmp_directory}')
                 for obj_xxx in oss2.ObjectIterator(oss_service.bucket, prefix=tmp_directory, delimiter = '/'):
@@ -105,7 +105,7 @@ def get_user_result_video_list(uuid, date_string, num):
             no_check_video_list = list(list2_sorted)
         
         for file_full_path in no_check_video_list:
-            oss_video_path = "oss://vigen-invi/" + file_full_path
+            oss_video_path = oss_service.Prefix + "/" + file_full_path
             print(f'Generated video: {oss_video_path}')
             _, video_url = oss_service.sign(oss_video_path, timeout=3600*100)
             valid_video_list.append(video_url)
@@ -190,7 +190,8 @@ with gr.Blocks(title = "Dreamoving",
         template_video_list = examples['template_video']
         for i in range(9):
             file_name = template_video_list[i]
-            oss_path = "oss://vigen-invi/video_generation/template_video1/" + file_name
+            oss_path = oss_service.Prefix + "/" + oss_service.ObjectName + "/template_video/" + file_name
+            print(f'template_video: {oss_path}')
             _, url = oss_service.sign(oss_path, timeout=3600*100)
             template_videos_to_ref.append(url)
     else:
@@ -313,7 +314,8 @@ with gr.Blocks(title = "Dreamoving",
         mp4_url_list = get_dirnames(filePath="./data/sample_video", tail=".mp4")
         for i in range(min(num_video, len(mp4_url_list))):
             file_name = os.path.basename(mp4_url_list[i])
-            oss_path = "oss://vigen-invi/video_generation/sample_video/" + file_name
+            oss_path = oss_service.Prefix + "/" + oss_service.ObjectName + "/template_video/" + file_name
+            print(f'template_video: {oss_path}')
             _, video_url = oss_service.sign(oss_path, timeout=3600*100)
             mp4_lists.append(video_url)
     else:
