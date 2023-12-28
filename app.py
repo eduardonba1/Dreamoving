@@ -12,6 +12,8 @@ oss_service = ossService()
 
 ENABLE_OSS_RESOURCES = False
 
+profile_name = ''
+
 # result_video_oss_url = {} # user_id, (list[signed_url), list[oss_path])]
 
 def tab_func_template():
@@ -119,6 +121,7 @@ def get_user_result_video_list(uuid, date_string, num):
     return valid_video_list, valid_image_list
 
 def refresh_video(uuid, request_id):
+    print(f'profile_name={profile_name}')
     notes, process_status = myHumanGen.get_ranking_location(uuid)
     if is_wanx_platform:
         uuid = 'wanx_lab'
@@ -172,10 +175,12 @@ def refresh_video(uuid, request_id):
                 
     return notes, new_list[0], new_list[1], new_list[2], new_list[3]#, new_image_list[0], new_image_list[1], new_image_list[2], new_image_list[3]
 
+
 def hello(profile: gr.OAuthProfile | None) -> str:
     if profile is None:
         return "I don't know you."
     # print(gr.OAuthProfile)
+    profile_name = profile.name
     print(f'profile name={profile.name}')
     return f"Hello {profile.name}"
     
@@ -190,6 +195,7 @@ with gr.Blocks(title = "Dreamoving",
         "# Gradio OAuth Space\n\nThis Space is a demo for the new **Sign in with Hugging Face** feature."
     )
     gr.LoginButton()
+    gr.LogoutButton()
     m_text = gr.Markdown()
     demo.load(hello, inputs=None, outputs=m_text)
     with gr.Row():
@@ -246,12 +252,12 @@ with gr.Blocks(title = "Dreamoving",
                         gr.Markdown("Select a mode: Reference-Video/Prompt")
 
                         with gr.Tab("Guided Style Generation") as tab0: 
-                            prompt_template = gr.Textbox(placeholder="Enter prompt words to control the generation effect, such as the character, the character's clothing, the scene, etc. Supports input in Chinese/English.",label="Prompt", lines=2,interactive=True,show_label=False, text_align='left')
+                            prompt_template = gr.Textbox(placeholder="Enter prompt words to control the generation effect, such as the character, the character's clothing, the scene, etc.",label="Prompt", lines=2,interactive=True,show_label=False, text_align='left')
                             # with gr.Row():
                             #     # with gr.Group(elem_id='show_box3'):
                             #     # with gr.Group():
                             #     with gr.Column(scale=1, min_width=1):
-                            #         prompt_template = gr.Textbox(placeholder="Enter prompt words to control the generation effect, such as the character, the character's clothing, the scene, etc. Supports input in Chinese/English.", label="Prompt提示词", lines=2,interactive=True,show_label=False, text_align='left')
+                            #         prompt_template = gr.Textbox(placeholder="Enter prompt words to control the generation effect, such as the character, the character's clothing, the scene, etc.", label="Prompt提示词", lines=2,interactive=True,show_label=False, text_align='left')
                             #     with gr.Column(scale=1, min_width=1, elem_id='column_button'):
                             #         # prompt_caption_01 = gr.Button(value="AI Caption", elem_id='button_param1')
                             #         prompt_caption_01 = gr.Button(
