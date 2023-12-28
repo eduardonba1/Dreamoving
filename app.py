@@ -121,7 +121,7 @@ def get_user_result_video_list(uuid, date_string, num):
     return valid_video_list, valid_image_list
 
 def refresh_video(uuid, request_id):
-    print(f'profile_name={profile_name}')
+    print(f'profile_name====={profile_name}')
     notes, process_status = myHumanGen.get_ranking_location(uuid)
     if is_wanx_platform:
         uuid = 'wanx_lab'
