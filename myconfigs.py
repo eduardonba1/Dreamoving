@@ -19,7 +19,7 @@ EAS_AUTH_CARTOONRECOG = os.getenv('EAS_AUTH_CARTOONRECOG')
 EAS_AUTH_PROMPT = os.getenv('EAS_AUTH_PROMPT')
 TRANSLATE_CN_EN = os.getenv('TRANSLATE_CN_EN')
 
-num_instance_dashone = 2
+num_instance_dashone = 6
 avg_process_time = 5 # minutes
 ref_video_path = 'data/origin_video/video'
 ref_video_prompt = 'data/origin_video/video_prompts_en.txt'
