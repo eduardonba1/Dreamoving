@@ -74,31 +74,6 @@ def sync_request_local(request_id, data):
         print(f"request_id: {request_id}, request type: video generation, retuen message: Faild, result: {result_video_url}")
     return result_video_url
 
-def sync_request_translate_en2cn(request_id, data):
-    headers = {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": EAS_AUTH_CARTOONRECOG,
-        # "X-DashScope-Async": "enable",
-        # "X-DashScope-DataInspection": "enable"
-    }    
-    url_create_task = 'http://1096433202046721.cn-shanghai.pai-eas.aliyuncs.com/api/predict/videogene_supp/api'
-    
-    print(f"[{request_id}], request type: translate en2cn, json input: {data}")
-    res_ = requests.post(url_create_task, data=data, headers=headers)
-    # print(res_)
-    # print(res_.content)
-    res = json.loads(res_.content.decode())
-    
-    translate_cn = ''
-    if res['payload']['output']['error_message'] == 'Success':
-        translate_cn = res['payload']['output']['key']
-        # print(f"{request_id} translate_cn: {translate_cn}")
-        print(f"[{request_id}], request type: translate en2cn, retuen message: Succees, result: {translate_cn}")
-    else:
-        print(f"[{request_id}], request type: translate en2cn, retuen message: Faild, result: {translate_cn}")
-    return translate_cn
-
 
 def async_request_and_query(request_id, data):
     headers = {
@@ -268,7 +243,11 @@ def sync_request_prompt_caption(request_id, data):
         # "X-DashScope-Async": "enable",
         # "X-DashScope-DataInspection": "enable"
     }    
-    url_create_task = 'http://1096433202046721.cn-shanghai.pai-eas.aliyuncs.com/api/predict/videogene_supp_gu50/api'
+    
+    if OSSBucketName == "dreamoving-sgp":
+        url_create_task = 'http://1096433202046721.ap-southeast-1.pai-eas.aliyuncs.com/api/predict/videogene_supp_caption/api'
+    else:
+        url_create_task = 'http://1096433202046721.cn-shanghai.pai-eas.aliyuncs.com/api/predict/videogene_supp_gu50/api'
     
     print(f"request_id: {request_id}, request type: prompt_caption, json input: {data}")
     res_ = requests.post(url_create_task, data=data, headers=headers)
@@ -307,29 +286,6 @@ class HumanGenService:
         self.all_requests = []
         self.all_requests_time = {} # dict: request_id, time
         self.lock = threading.Lock()
-
-    def translate_en2cn(self, request_id, input_prompt):
-        #--------------- translate service -----------------#
-        translate_data = {}
-        translate_data['header'] = {}
-        translate_data['header']['request_id'] = request_id
-        translate_data['header']['service_id'] = ''
-        translate_data['header']['task_id'] = request_id
-        translate_data['header']['attributes'] = {}
-        translate_data['header']['attributes']['user_id'] = ''
-        translate_data['payload'] = {}
-        translate_data['payload']['input'] = {}
-        translate_data['payload']['input']['work_type'] = 'translate_en2zh'
-        translate_data['payload']['input']['key'] = input_prompt
-        translate_data['payload']['parameters'] = {}
-        translate_data = json.dumps(translate_data) # to string        
-        # serving api
-        # print("input_prompt: ", input_prompt)        
-        translate_cn = sync_request_translate_en2cn(request_id=request_id, data=translate_data)
-        # print("translate_cn: ", translate_cn)        
-        #--------------- translate service -----------------#
-        print(f'[{request_id}] - [HumanGen] - translate ok')
-        return translate_cn
 
     def signed_oss_path_to_internal(self, signed_oss_path):
         sign_internal_oss_path = ''
