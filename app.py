@@ -121,12 +121,13 @@ def get_user_result_video_list(uuid, date_string, num):
     return valid_video_list, valid_image_list
 
 def refresh_video(uuid, request_id, profile):
-    print(f'profile_name====={profile.name}')
-    notes, process_status = myHumanGen.get_ranking_location(uuid)
     if is_wanx_platform:
         uuid = 'wanx_lab'
     if uuid is None or uuid == '':
-        uuid = 'test_version_phone'
+        uuid = get_random_string()
+        
+    # print(f'profile_name====={profile.name}')
+    notes, process_status = myHumanGen.get_ranking_location(uuid)
     print(f'[refresh_video] uuid: {uuid}')
     print(f'[refresh_video] request_id: {request_id}')
     new_list = []
@@ -173,16 +174,16 @@ def refresh_video(uuid, request_id, profile):
                 new_list.append(None)
                 new_image_list.append(None)
                 
-    return notes, new_list[0], new_list[1], new_list[2], new_list[3]#, new_image_list[0], new_image_list[1], new_image_list[2], new_image_list[3]
+    return uuid, notes, new_list[0], new_list[1], new_list[2], new_list[3]#, new_image_list[0], new_image_list[1], new_image_list[2], new_image_list[3]
 
 
-def hello(profile: gr.OAuthProfile | None) -> str:
-    if profile is None:
-        return "I don't know you."
-    # print(gr.OAuthProfile)
-    profile_name = profile.name
-    print(f'profile name={profile.name}')
-    return f"Hello {profile.name}"
+# def hello(profile: gr.OAuthProfile | None) -> str:
+#     if profile is None:
+#         return "I don't know you."
+#     # print(gr.OAuthProfile)
+#     profile_name = profile.name
+#     print(f'profile name={profile.name}')
+#     return f"Hello {profile.name}"
     
 with gr.Blocks(title = "Dreamoving",
                css='style.css',
@@ -191,13 +192,13 @@ with gr.Blocks(title = "Dreamoving",
                         text_size=gr.themes.sizes.text_md
                     )
                ) as demo:
-    gr.Markdown(
-        "# Gradio OAuth Space\n\nThis Space is a demo for the new **Sign in with Hugging Face** feature."
-    )
-    gr.LoginButton()
-    gr.LogoutButton()
-    m_text = gr.Markdown()
-    demo.load(hello, inputs=None, outputs=m_text)
+    # gr.Markdown(
+    #     "# Gradio OAuth Space\n\nThis Space is a demo for the new **Sign in with Hugging Face** feature."
+    # )
+    # gr.LoginButton()
+    # gr.LogoutButton()
+    # m_text = gr.Markdown()
+    # demo.load(hello, inputs=None, outputs=m_text)
     with gr.Row():
         gr.HTML(f"""
                 <div id=css_img_dreamoving>
@@ -323,8 +324,8 @@ with gr.Blocks(title = "Dreamoving",
                     output_video2 = gr.Video(format="mp4", show_label=False, label="Result Video", autoplay=True,elem_id='show_window_result')
                     output_video3 = gr.Video(format="mp4", show_label=False, label="Result Video", autoplay=True,elem_id='show_window_result')
             
-    uuid = gr.Text(label="modelscope_uuid", visible=False)
-    request_id = gr.Text(label="modelscope_request_id", visible=False)
+    uuid = gr.Text(label="hf_uuid", visible=False)
+    request_id = gr.Text(label="hf_request_id", visible=False)
 
     # Sample Video
     num_video = 8
@@ -359,7 +360,7 @@ with gr.Blocks(title = "Dreamoving",
         fn=refresh_video,
         queue = False,
         inputs=[uuid, request_id, gr.OAuthProfile],
-        outputs=[user_notes, output_video0, output_video1, output_video2, output_video3]
+        outputs=[uuid, user_notes, output_video0, output_video1, output_video2, output_video3]
     )
          
 
@@ -378,6 +379,9 @@ with gr.Blocks(title = "Dreamoving",
     tab1.select(fn=tab_func_prompt, outputs=[ref_video, input_mode]) # prompt mode
     
     def async_process(user_id, request_id, input_mode, ref_image_path, ref_video_path, input_prompt='', prompt_template='',model_id=False):
+        if uuid is None or uuid == '':
+            uuid = get_random_string()
+        
         # parm-chheck
         check_note_info = myHumanGen.valid_check(user_id, request_id, input_mode, ref_image_path, ref_video_path, input_prompt, prompt_template,model_id)
         
@@ -389,10 +393,10 @@ with gr.Blocks(title = "Dreamoving",
             
             return refresh_video(user_id, request_id)
         else:
-            notes, video_0, video_1, video_2, video_3 = refresh_video(user_id, request_id)
-            return check_note_info, video_0, video_1, video_2, video_3
+            uuid, notes, video_0, video_1, video_2, video_3 = refresh_video(user_id, request_id)
+            return uuid, check_note_info, video_0, video_1, video_2, video_3
     
-    run_button.click(fn=async_process, inputs=[uuid, request_id, input_mode, ref_image, ref_video, prompt, prompt_template, model_id], outputs=[user_notes, output_video0, output_video1, output_video2, output_video3])
+    run_button.click(fn=async_process, inputs=[uuid, request_id, input_mode, ref_image, ref_video, prompt, prompt_template, model_id], outputs=[uuid, user_notes, output_video0, output_video1, output_video2, output_video3])
         
     with gr.Row():
         # DingTalk
