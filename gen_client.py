@@ -451,12 +451,9 @@ class HumanGenService:
             if file_name not in template_prompts:
                 raise gr.Error("The input video is not a template!")
             input_prompt = template_prompts[file_name]    
-            if file_name not in template_orign_videos:
-                raise gr.Error("The input video is not a template!")
-            ref_ori_video_path = template_orign_videos[file_name] 
         else:
             print("video file not found:%s" % ref_video_name)
-        return ref_ori_video_path, input_prompt
+        return input_prompt
     
     def click_button_func_async(self, user_id, request_id, input_mode, ref_image_path, ref_video_path, input_prompt='', prompt_template='',model_id=False):
         start_time = time.time()
