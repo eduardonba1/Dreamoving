@@ -1,6 +1,7 @@
 import os
 import time
 import gradio as gr
+from huggingface_hub import whoami
 import threading
 from myconfigs import *
 from oss_utils import ossService
@@ -171,6 +172,13 @@ def refresh_video(uuid, request_id):
                 
     return notes, new_list[0], new_list[1], new_list[2], new_list[3]#, new_image_list[0], new_image_list[1], new_image_list[2], new_image_list[3]
 
+def hello(profile: gr.OAuthProfile | None) -> str:
+    if profile is None:
+        return "I don't know you."
+    # print(gr.OAuthProfile)
+    print(f'profile name={profile.name}')
+    return f"Hello {profile.name}"
+    
 with gr.Blocks(title = "Dreamoving",
                css='style.css',
                theme=gr.themes.Soft(
@@ -179,9 +187,10 @@ with gr.Blocks(title = "Dreamoving",
                     )
                ) as demo:
     gr.Markdown(
-        "Please login first."
+        "# Gradio OAuth Space\n\nThis Space is a demo for the new **Sign in with Hugging Face** feature."
     )
     gr.LoginButton()
+    demo.load(hello, inputs=None, outputs=m1)
     with gr.Row():
         gr.HTML(f"""
                 <div id=css_img_dreamoving>
