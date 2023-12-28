@@ -10,7 +10,7 @@ from gen_client import *
 myHumanGen = HumanGenService()
 oss_service = ossService()
 
-ENABLE_OSS_RESOURCES = True
+ENABLE_OSS_RESOURCES = False
 
 profile_name = ''
 
