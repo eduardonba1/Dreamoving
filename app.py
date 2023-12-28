@@ -233,6 +233,7 @@ with gr.Blocks(title = "Dreamoving",
         - ⭐️ 2. If the input image is a cartoon picture, be sure to select "Cartoon Video Generation."
         - ⭐️ 3. The system retains up to 4 videos generated in the last two days, refreshing at midnight. Please download and save them in time.
         - ⭐️ 4. System updates generally occur between 7-8 a.m.
+        - ⭐️ 5. Refreshing the page will result in the loss of tasks and generated videos, so please wait for the tasks to be completed and save the generated videos before refreshing.
         """)
 
     input_mode = gr.Text(value="template_mode", label="input_mode", visible=False)
