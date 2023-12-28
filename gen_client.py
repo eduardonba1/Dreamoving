@@ -74,31 +74,6 @@ def sync_request_local(request_id, data):
         print(f"request_id: {request_id}, request type: video generation, retuen message: Faild, result: {result_video_url}")
     return result_video_url
 
-def sync_request_cartoon(request_id, data):
-    headers = {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": EAS_AUTH_CARTOONRECOG,
-        # "X-DashScope-Async": "enable",
-        # "X-DashScope-DataInspection": "enable"
-    }    
-    url_create_task = 'http://1096433202046721.cn-shanghai.pai-eas.aliyuncs.com/api/predict/videogene_supp/api'
-    
-    print(f"request_id: {request_id}, request type: cartoon recognize, json input: {data}")
-    res_ = requests.post(url_create_task, data=data, headers=headers)
-    # print(res_)
-    # print(res_.content)
-    res = json.loads(res_.content.decode())
-    
-    cartoon_recog = ''
-    if res['payload']['output']['error_message'] == 'Success':
-        cartoon_recog = res['payload']['output']['key']['label']
-        # print(f"request_id: {request_id} cartoon_recog: {cartoon_recog}")
-        print(f"request_id: {request_id}, request type: cartoon recognize, retuen message: Succees, result: {cartoon_recog}")
-    else:
-        print(f"request_id: {request_id}, request type: cartoon recognize, retuen message: Faild, result: {cartoon_recog}")
-    return cartoon_recog
-
 def sync_request_translate_en2cn(request_id, data):
     headers = {
         "Content-Type": "application/json",
@@ -355,6 +330,20 @@ class HumanGenService:
         #--------------- translate service -----------------#
         print(f'[{request_id}] - [HumanGen] - translate ok')
         return translate_cn
+
+    def signed_oss_path_to_internal(self, signed_oss_path):
+        sign_internal_oss_path = ''
+        import re
+        pattern = r"http.*\.aliyuncs.com"
+        match = re.search(pattern, signed_oss_path)
+        if match:
+            oss_address0 = match.group() 
+            oss_address1 = signed_oss_path[len(oss_address0):] 
+            oss_endpoint_seg = oss_address0[:-len(".aliyuncs.com")]
+            sign_internal_oss_path = oss_endpoint_seg + '-internal.aliyuncs.com' + oss_address1
+        else:
+            print(f'[{request_id}] - [HumanGen] - signed_oss_path_to_internal faild for {signed_oss_path}')
+        return sign_internal_oss_path  
         
 
     def click_button_prompt(self, user_id, request_id, input_mode, ref_image_path, ref_video_path, input_prompt='', prompt_template='',model_id=False):
@@ -425,8 +414,7 @@ class HumanGenService:
         prompt_caption_data['payload'] = {}
         prompt_caption_data['payload']['input'] = {}
         prompt_caption_data['payload']['input']['work_type'] = 'prompt_caption'
-        oss_endpoint_seg = OSSEndpoint[:-len(".aliyuncs.com")]
-        sign_vid_oss_path = oss_endpoint_seg + '-internal' + sign_vid_oss_path[len(oss_endpoint_seg):]
+        sign_vid_oss_path = self.signed_oss_path_to_internal(sign_vid_oss_path)
         print(f"request_id: {request_id}, video internal oss path for caption: {sign_vid_oss_path}")
         prompt_caption_data['payload']['input']['key'] = sign_vid_oss_path
         prompt_caption_data['payload']['parameters'] = {}
