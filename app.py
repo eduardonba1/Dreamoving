@@ -120,8 +120,8 @@ def get_user_result_video_list(uuid, date_string, num):
                 break
     return valid_video_list, valid_image_list
 
-def refresh_video(uuid, request_id):
-    print(f'profile_name====={profile_name}')
+def refresh_video(uuid, request_id, profile):
+    print(f'profile_name====={profile.name}')
     notes, process_status = myHumanGen.get_ranking_location(uuid)
     if is_wanx_platform:
         uuid = 'wanx_lab'
@@ -358,7 +358,7 @@ with gr.Blocks(title = "Dreamoving",
     refresh_button.click(
         fn=refresh_video,
         queue = False,
-        inputs=[uuid, request_id],
+        inputs=[uuid, request_id, profile: gr.OAuthProfile],
         outputs=[user_notes, output_video0, output_video1, output_video2, output_video3]
     )
          
