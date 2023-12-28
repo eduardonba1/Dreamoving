@@ -120,7 +120,7 @@ def get_user_result_video_list(uuid, date_string, num):
                 break
     return valid_video_list, valid_image_list
 
-def refresh_video(uuid, request_id, profile):
+def refresh_video(uuid, request_id):
     if is_wanx_platform:
         uuid = 'wanx_lab'
     if uuid is None or uuid == '':
@@ -359,7 +359,7 @@ with gr.Blocks(title = "Dreamoving",
     refresh_button.click(
         fn=refresh_video,
         queue = False,
-        inputs=[uuid, request_id, gr.OAuthProfile],
+        inputs=[uuid, request_id],
         outputs=[uuid, user_notes, output_video0, output_video1, output_video2, output_video3]
     )
          
