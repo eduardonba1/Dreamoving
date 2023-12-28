@@ -358,7 +358,7 @@ with gr.Blocks(title = "Dreamoving",
     refresh_button.click(
         fn=refresh_video,
         queue = False,
-        inputs=[uuid, request_id, profile: gr.OAuthProfile],
+        inputs=[uuid, request_id, gr.OAuthProfile],
         outputs=[user_notes, output_video0, output_video1, output_video2, output_video3]
     )
          
