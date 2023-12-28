@@ -20,26 +20,13 @@ def tab_func_prompt():
     ref_video_path = None
     return ref_video_path, 'prompt_mode'
     
-# with open('script.txt', encoding="utf-8") as f:
-#     script_text_to_load_results = f.read()
-    
-# def dataset_func(evt: gr.SelectData):
-#     ref_video_path = evt.value[0]
-#     print("[dataset_func] ref_video_path: ", ref_video_path)
-#     # input_prompt = 'haha'
-#     if not os.path.exists(ref_video_path):
-#         raise gr.Error(f"The input video {ref_video_path} is not existed!")
-#     video_file_name = os.path.basename(ref_video_path)
-#     __, input_prompt = myHumanGen.template_video_2_prompt(video_file_name)
-#     return ref_video_path,input_prompt
-
 def video_2_prompt_func(ref_video_path):
     print("[dataset_func] ref_video_path: %s" % ref_video_path)
     if not os.path.exists(ref_video_path):
         raise gr.Error(f"The input video {ref_video_path} is not existed!")
     video_file_name = os.path.basename(ref_video_path)
     print("[dataset_func] video_file_name: %s" % video_file_name)
-    __, input_prompt = myHumanGen.template_video_2_prompt(video_file_name)
+    input_prompt = myHumanGen.template_video_2_prompt(video_file_name)
     print("[dataset_func] input_prompt: %s" % input_prompt)
     return ref_video_path,input_prompt
 
