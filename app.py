@@ -178,6 +178,10 @@ with gr.Blocks(title = "Dreamoving",
                         text_size=gr.themes.sizes.text_md
                     )
                ) as demo:
+    gr.Markdown(
+        "Please login first."
+    )
+    gr.LoginButton()
     with gr.Row():
         gr.HTML(f"""
                 <div id=css_img_dreamoving>
