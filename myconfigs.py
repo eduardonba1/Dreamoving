@@ -25,11 +25,9 @@ ref_video_path = 'data/origin_video/video'
 ref_video_prompt = 'data/origin_video/video_prompts_en.txt'
 
 class RESOURCES:
-    logo_img0 = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/humangen-2023-11-02/logo/dreamoving.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1707180774&Signature=WSmhiJ2RWgFMoMQ2rf0VOvCkIY8%3D"
-    logo_img1 = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/humangen-2023-11-02/logo/title1.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1705605528&Signature=Nv8MYnkZd%2F45GZA2tCZFtu6cREM%3D"
-    logo_img2 = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/humangen-2023-11-02/logo/title2.png?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1705605598&Signature=ac0P4ENqTrlWG73fYhfaYUR551o%3D"
-    logo_dingding = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/humangen-2023-11-02/logo/dingdingqun.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1706503081&Signature=133WdLAWzsBQzqIWvD5yXcsP69I%3D"
-    logo_wechat = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/humangen-2023-11-02/logo/weixinqun.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1703759402&Signature=sBPLGvpWLoilqFswqTlodI6KwdY%3D"
+    logo_img0 = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/dreamoving-serving/logo/dreamoving.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1707360105&Signature=6oX6KYkRCoE6Od1Me5jkMufrSPI%3D"
+    logo_dingding = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/dreamoving-serving/logo/dingdingqun.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1707360024&Signature=vGuD0KjZpoTp3m8bC6%2FVMZQgDU0%3D"
+    logo_wechat = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/dreamoving-serving/logo/weixinqun.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1703796062&Signature=1ACHayGx%2F59r3%2FMlp5WtYBovp44%3D"
     
 examples = {
     'examples_images': [
