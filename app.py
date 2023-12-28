@@ -379,8 +379,8 @@ with gr.Blocks(title = "Dreamoving",
     tab1.select(fn=tab_func_prompt, outputs=[ref_video, input_mode]) # prompt mode
     
     def async_process(user_id, request_id, input_mode, ref_image_path, ref_video_path, input_prompt='', prompt_template='',model_id=False):
-        if uuid is None or uuid == '':
-            uuid = get_random_string()
+        if user_id is None or user_id == '':
+            user_id = get_random_string()
         
         # parm-chheck
         check_note_info = myHumanGen.valid_check(user_id, request_id, input_mode, ref_image_path, ref_video_path, input_prompt, prompt_template,model_id)
@@ -393,8 +393,8 @@ with gr.Blocks(title = "Dreamoving",
             
             return refresh_video(user_id, request_id)
         else:
-            uuid, notes, video_0, video_1, video_2, video_3 = refresh_video(user_id, request_id)
-            return uuid, check_note_info, video_0, video_1, video_2, video_3
+            user_id, notes, video_0, video_1, video_2, video_3 = refresh_video(user_id, request_id)
+            return user_id, check_note_info, video_0, video_1, video_2, video_3
     
     run_button.click(fn=async_process, inputs=[uuid, request_id, input_mode, ref_image, ref_video, prompt, prompt_template, model_id], outputs=[uuid, user_notes, output_video0, output_video1, output_video2, output_video3])
         
