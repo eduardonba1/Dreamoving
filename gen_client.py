@@ -642,14 +642,19 @@ class HumanGenService:
                     startt = self.all_requests_time[req]
                     waste_time = (endt - startt)/60
                 if waste_time > avg_process_time + 1:
+                    uuid = ''
+                    for uid in self.all_user_requests:
+                        if req in self.all_user_requests[uid]:
+                            uuid = uid
+                            break                    
                     data = '{"header":{"request_id":"","service_id":"","task_id":""},"payload":{"input": {"ref_image_path": "", "ref_video_path": "", "ref_video_name": "", "input_prompt": "", "prompt_template": "", "scale_depth": 0.7, "scale_pose": 0.5},"parameters":{}}}'
                     data = json.loads(data) # string to dict
                     data['header']['service_id'] = DASHONE_SERVICE_ID
                     data['header']['request_id'] = req
                     data['header']['task_id'] = req
                     data['header']['attributes'] = {}
-                    data['header']['attributes']['user_id'] = user_id
-                    data['payload']['input']['user_id'] = user_id 
+                    data['header']['attributes']['user_id'] = uuid
+                    data['payload']['input']['user_id'] = uuid 
                     data = json.dumps(data) # to string                
                     ret_status, ret_json = query_video_generation(request_id=req, data=data)
                     # print(f'ret_json = {ret_json}')  
