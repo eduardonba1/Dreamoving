@@ -27,7 +27,7 @@ ref_video_prompt = 'data/origin_video/video_prompts_en.txt'
 class RESOURCES:
     logo_img0 = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/dreamoving-serving/logo/dreamoving.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1707360105&Signature=6oX6KYkRCoE6Od1Me5jkMufrSPI%3D"
     logo_dingding = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/dreamoving-serving/logo/dingdingqun.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1707360024&Signature=vGuD0KjZpoTp3m8bC6%2FVMZQgDU0%3D"
-    logo_wechat = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/dreamoving-serving/logo/weixinqun.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1703796062&Signature=1ACHayGx%2F59r3%2FMlp5WtYBovp44%3D"
+    logo_wechat = "https://vibktprfx-prod-prod-xstream-cn-shanghai.oss-cn-shanghai.aliyuncs.com/xstream-framework/code/dreamoving-serving/logo/weixinqun.jpg?OSSAccessKeyId=LTAI5tQyVREDrxAdmaeuNfcW&Expires=1739822905&Signature=Go71Nt8X29wIxTFPIMB2sRyP1tw%3D"
     
 examples = {
     'examples_images': [
