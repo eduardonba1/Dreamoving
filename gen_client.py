@@ -632,7 +632,8 @@ class HumanGenService:
         if user_id is None or user_id == '':
             user_id = 'test_version_phone'
         process_status = ''
-        
+
+        print(f'[get_ranking_location] ------ clean timeout and process over request start ------ ')
         if len(self.all_requests) > 0:
             for i in range(min(num_instance_dashone, len(self.all_requests))):
                 req = self.all_requests[i]
@@ -646,7 +647,8 @@ class HumanGenService:
                     for uid in self.all_user_requests:
                         if req in self.all_user_requests[uid]:
                             uuid = uid
-                            break                    
+                            break
+                    print(f'[get_ranking_location] find timeout request: {req}, uuid: {uuid}')
                     data = '{"header":{"request_id":"","service_id":"","task_id":""},"payload":{"input": {"ref_image_path": "", "ref_video_path": "", "ref_video_name": "", "input_prompt": "", "prompt_template": "", "scale_depth": 0.7, "scale_pose": 0.5},"parameters":{}}}'
                     data = json.loads(data) # string to dict
                     data['header']['service_id'] = DASHONE_SERVICE_ID
@@ -659,16 +661,20 @@ class HumanGenService:
                     ret_status, ret_json = query_video_generation(request_id=req, data=data)
                     # print(f'ret_json = {ret_json}')  
                     if ret_status == "SUCCESS" or ret_status == "FAILED":
+                        print(f'[get_ranking_location] query timeout request process over: {req}, uuid: {uuid}')
                         if req in self.all_requests:
                             self.all_requests.remove(req) # delete request_id
                         if req in self.all_requests_time:
                             del self.all_requests_time[req] 
                     else:
+                        print(f'[get_ranking_location] query timeout request process running: {req}, uuid: {uuid}')
                         break
                 else:
+                    print(f'[get_ranking_location] no timeout request.')
                     break
         else:
             print(f'size of all_requests is empty.')
+        print(f'[get_ranking_location] ------ clean timeout and process over request end ------ ')
         
         if user_id not in self.all_user_requests:
             return f'You have not request a video generation task.', ''
