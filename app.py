@@ -121,10 +121,9 @@ def get_user_result_video_list(uuid, date_string, num):
     return valid_video_list, valid_image_list
 
 def refresh_video(uuid, request_id):
-    if is_wanx_platform:
-        uuid = 'wanx_lab'
     if uuid is None or uuid == '':
         uuid = get_random_string()
+        print(f'[refresh_video] generate a uuid {uuid}')
         
     # print(f'profile_name====={profile.name}')
     notes, process_status = myHumanGen.get_ranking_location(uuid)
@@ -382,6 +381,7 @@ with gr.Blocks(title = "Dreamoving",
     def async_process(user_id, request_id, input_mode, ref_image_path, ref_video_path, input_prompt='', prompt_template='',model_id=False):
         if user_id is None or user_id == '':
             user_id = get_random_string()
+            print(f'[async_process] generate a uuid {uuid}')
         
         # parm-chheck
         check_note_info = myHumanGen.valid_check(user_id, request_id, input_mode, ref_image_path, ref_video_path, input_prompt, prompt_template,model_id)
