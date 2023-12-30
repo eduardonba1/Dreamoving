@@ -401,14 +401,12 @@ class HumanGenService:
     
     def click_button_func_async(self, user_id, request_id, input_mode, ref_image_path, ref_video_path, input_prompt='', prompt_template='',model_id=False):
         start_time = time.time()
-        if is_wanx_platform:
-            user_id = 'wanx_lab'
-            request_id = get_random_string()
-            print(f"request_id: {request_id}, generate user_id: {user_id} and request_id: {request_id}")
         if user_id is None or user_id == '':
-            user_id = 'test_version_phone'
+            user_id = get_random_string()
+            print(f"[click_button_func_async] generate user_id: {user_id}")
         if request_id is None or request_id == '':
             request_id = get_random_string()
+            print(f"[click_button_func_async] generate request_id: {request_id}")
         # key by: ref_video_name, digest(ref_image_path), prompt_template, input_prompt, 
         # scale_depth, scale_pose
         #print("ref_image_path:%s ref_video_path:%s" % (ref_image_path, ref_video_path) )
@@ -543,12 +541,12 @@ class HumanGenService:
 
 
     def valid_check(self, user_id, request_id, input_mode, ref_image_path, ref_video_path, input_prompt='', prompt_template='',model_id=False):
-        if is_wanx_platform:
-            user_id = 'wanx_lab'
         if user_id is None or user_id == '':
-            user_id = 'test_version_phone'
+            user_id = get_random_string()
+            print(f"[valid_check] generate user_id: {user_id}")
         if request_id is None or request_id == '':
             request_id = get_random_string()
+            print(f"[valid_check] generate request_id: {request_id}")
         print(f"-----------------request_id: {request_id}, user_id: {user_id}---------------")
         
         self.lock.acquire()
@@ -577,22 +575,22 @@ class HumanGenService:
 
         if ref_image_path is None or ref_image_path == '' or (not os.path.exists(ref_image_path)):
             print(f"request_id: {request_id}, No image input, task over!")
-            # raise gr.Error("请输入图片!")
+            # raise gr.Error("Please input a image!")
             return "Please input a image."
         
         if input_mode == 'template_mode' and cartoon_recog == 'realhuman' and (prompt_template == '' or prompt_template == [] or prompt_template is None):
             print(f"request_id: {request_id}, No prompt input, task over!")
-            # raise gr.Error("请输入prompt!")
+            # raise gr.Error("Please input a prompt!")
             return "Please input a prompt."
         
         if input_mode == 'prompt_mode' and cartoon_recog == 'realhuman' and (input_prompt == '' or input_prompt == [] or input_prompt is None):
             print(f"request_id: {request_id}, No prompt input, task over!")
-            # raise gr.Error("请输入prompt!")
+            # raise gr.Error("Please input a prompt!")
             return "Please input a prompt."
         
         if input_mode == 'template_mode' and (ref_video_path is None or ref_video_path == ''):
             print(f"request_id: {request_id}, No video input, task over!")
-            # raise gr.Error("请输入视频!")
+            # raise gr.Error("Please input a video!")
             return "Please input a video."
         
         ref_video_name = ''
@@ -627,13 +625,12 @@ class HumanGenService:
             self.lock.release()
 
     def get_ranking_location(self, user_id):
-        if is_wanx_platform:
-            user_id = 'wanx_lab'
         if user_id is None or user_id == '':
-            user_id = 'test_version_phone'
+            user_id = get_random_string()
+            print(f"[get_ranking_location] generate user_id: {user_id}")
         process_status = ''
 
-        print(f'[get_ranking_location] ------ clean timeout and process over request start ------ ')
+        print(f'----------- [get_ranking_location] clean timeout and process over request start ----------- ')
         if len(self.all_requests) > 0:
             for i in range(min(num_instance_dashone, len(self.all_requests))):
                 req = self.all_requests[i]
@@ -648,7 +645,7 @@ class HumanGenService:
                         if req in self.all_user_requests[uid]:
                             uuid = uid
                             break
-                    print(f'[get_ranking_location] find timeout request: {req}, uuid: {uuid}')
+                    print(f'find timeout request: {req}, uuid: {uuid}')
                     data = '{"header":{"request_id":"","service_id":"","task_id":""},"payload":{"input": {"ref_image_path": "", "ref_video_path": "", "ref_video_name": "", "input_prompt": "", "prompt_template": "", "scale_depth": 0.7, "scale_pose": 0.5},"parameters":{}}}'
                     data = json.loads(data) # string to dict
                     data['header']['service_id'] = DASHONE_SERVICE_ID
@@ -661,20 +658,20 @@ class HumanGenService:
                     ret_status, ret_json = query_video_generation(request_id=req, data=data)
                     # print(f'ret_json = {ret_json}')  
                     if ret_status == "SUCCESS" or ret_status == "FAILED":
-                        print(f'[get_ranking_location] query timeout request process over: {req}, uuid: {uuid}')
+                        print(f'query timeout request process over: {req}, uuid: {uuid}')
                         if req in self.all_requests:
                             self.all_requests.remove(req) # delete request_id
                         if req in self.all_requests_time:
                             del self.all_requests_time[req] 
                     else:
-                        print(f'[get_ranking_location] query timeout request process running: {req}, uuid: {uuid}')
+                        print(f'query timeout request process running: {req}, uuid: {uuid}')
                         break
                 else:
-                    print(f'[get_ranking_location] no timeout request.')
+                    print(f'no timeout request.')
                     break
         else:
             print(f'size of all_requests is empty.')
-        print(f'[get_ranking_location] ------ clean timeout and process over request end ------ ')
+        print(f'----------- [get_ranking_location] clean timeout and process over request end ----------- ')
         
         if user_id not in self.all_user_requests:
             return f'You have not request a video generation task.', ''
@@ -701,7 +698,7 @@ class HumanGenService:
             data['payload']['input']['user_id'] = user_id 
             data = json.dumps(data) # to string                
             ret_status, ret_json = query_video_generation(request_id=request_id, data=data)
-            print(f'ret_json = {ret_json}')
+            # print(f'ret_json = {ret_json}')
             if ret_status == "SUCCESS":
                 req = self.all_user_requests[user_id][0]
                 self.delete_request_id(user_id, req) # delete request_id
